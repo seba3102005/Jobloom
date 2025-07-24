@@ -226,7 +226,7 @@ select option {
 
 .posted-time {
   font-size: 12px;
-  color:gray;
+  color:white;
   font-family: Inter, serif;
   font-weight: 400;
 
@@ -256,7 +256,7 @@ select option {
   align-items: center;
   gap: 5px;
   font-family: Inter, serif;
-  color:gray;
+  color:white;
   font-weight: 300;
 
 }
@@ -272,14 +272,14 @@ select option {
 
 }
 .bx-dollar-circle{
-  color:gray;
+  color:white;
   font-size: 17px;
 
 }
 
 .payment i,
 .proposals i {
-  color: gray;
+  color: white;
 }
 
 

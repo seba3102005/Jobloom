@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Sign Up</title>
+  <!-- Add Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/user&company.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+   <!-- Notification Styles -->
+  <style>
+    .notification-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .notification-box {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      max-width: 400px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      animation: pop 0.3s ease-in-out;
+    }
+
+    .notification-box.success {
+      border-left: 6px solid #28a745;
+    }
+
+    .notification-box.error {
+      border-left: 6px solid #dc3545;
+    }
+
+    .notification-box i {
+      font-size: 24px;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Notification Layer -->
+<div id="notification-overlay" class="notification-overlay">
+  <div id="notification-box" class="notification-box">
+    <i id="notif-icon">✔️</i>
+    <span id="notif-message">This is a message</span>
+  </div>
+</div>
+
+
+<div class="form-container">
+  <h2 class="form-title">Company Sign Up</h2>
+
+  
+  <form  id="company-form" method="POST">
+    {% csrf_token %}
+
+    <div class="input-row">
+      <div class="input-group">
+        <label for="company-name">Company Name</label>
+        {{ form.username }}
+      </div>
+
+      <div class="input-group">
+        <label for="industry">Industry</label>
+        {{ form.industry }}
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="company-email">Company Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}
+    <div class="error">
+      {{ form.email.errors.0 }}
+    </div>
+    {% endif %}
+    </div>
+
+    <div class="input-group">
+      <label for="phone">Contact Number</label>
+      {{ form.phoneNo }}
+    </div>
+
+    <div class="input-group">
+      <label for="location">Headquarters Location</label>
+      {{ form.location }}
+    </div>
+
+    <div class="input-group">
+      <label for="website">Company Website</label>
+      {{ form.website }}
+    </div>
+
+    <div class="input-group">
+      <label for="password">Create Password</label>
+      {{ form.password }}
+    </div>
+
+    <div class="input-group">
+      <label for="confirm-password">Confirm Password</label>
+      {{ form.confirm_password }}
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+
+   
+  </form>
+  <p style="text-align: center; margin-top: 15px;">
+  Register as a Job Seeker?
+  <a href="{% url 'register_user' %}" style="color: #007bff; text-decoration: none;">Register here</a>
+  <p style="text-align: center; margin-top: 15px;">
+  Already have an account?
+  <a href="{% url 'login' %}" style="color: #007bff; text-decoration: none;">Login here</a>
+</p>
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+<script>
+  const overlay = document.getElementById('notification-overlay');
+  const box = document.getElementById('notification-box');
+  const message = document.getElementById('notif-message');
+  const icon = document.getElementById('notif-icon');
+
+  function showNotification(type, msg) {
+    box.className = 'notification-box ' + type;
+    icon.textContent = type === 'success' ? '✔️' : '❌';
+    message.textContent = msg;
+    overlay.style.display = 'flex';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 1500);
+  }
+
+  document.getElementById('company-form').addEventListener('submit', function(event) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (password !== confirmPassword) {
+        event.preventDefault();
+        showNotification('error', 'Passwords do not match!');
+        return;
+    }
+});
+
+</script>
+</body>
+</html>

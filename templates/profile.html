@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>profile</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_offers.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_details.css' %}">
+  <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+
+  <style>
+    .bx-trash{
+       display: flex;
+  align-items: center;
+  justify-content: center;
+      
+      width: 20px;
+      height: 20px;
+      padding: 3px;
+      border-radius: 50%;
+      margin: auto;
+
+    }
+    .bx-trash:hover{
+      background-color: gray;
+
+    }
+
+
+    #modal-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #f9f9f9;
+      padding: 24px;
+      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      width: 360px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    #modal-form h3 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    #modal-input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    #modal-input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    #modal-form button {
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 8px;
+    }
+
+    #modal-form button:first-of-type {
+      background: transparent;
+      border: none;
+      color: #888;
+      margin-right: 10px;
+    }
+
+    #modal-form button:first-of-type:hover {
+      color: #000;
+    }
+
+    #modal-form button:last-of-type {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+    }
+
+    #modal-form button:last-of-type:hover {
+      background-color: #0056b3;
+    }
+
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      transition: background 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="{% static 'img/img_6.jpg' %}" style="width: 200px;"/>
+  </div>
+
+  <div class="nav_links">
+    <a href="{% url 'profile' %}">Profile</a>
+    <a href="{% url 'job_offers' %}">Job Offers</a>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <div class="nav-icons">
+      <i class="bx bx-bell notification-icon"></i>
+      <img src="{% static 'img/user.png' %}" alt="Profile" class="profile-img">
+    </div>
+  </div>
+</nav>
+
+<div class="profile_main">
+  <div class="profile_info">
+    <div class="my_name">
+      <img src="{% static 'img/user.png' %}">
+      <div class="info_text">
+        <h2 id="profile-username">{{username}}</h2>
+        <p><i class="bx bxs-map"></i> Giza, Egypt </p>
+      </div>
+
+      
+    </div>
+
+    <div class="qualifications">
+      <div class="about_me">
+        
+
+        <div class="row" style="display: flex; flex-direction: column;">
+          <div class="row">
+            <h3>Video introduction</h3>
+          <i class="bx bx-plus" onclick="openModal('video')"></i>
+          </div>
+          
+          <div id="video-container" style="margin-top: 10px; ">
+            <a style="color: #007bff;" href="{{video}}">{{video}}</a>
+          </div>
+        </div>
+
+
+        <!-- Education Section -->
+        <div class="row" style="display: flex; flex-direction: column;">
+          <div class="row">
+            <h3>Education</h3>
+            <i class="bx bx-plus" onclick="openModalEducation('education')"></i>
+          </div>
+          
+          <div id="education-container" style="  margin-top: 10px;">
+            
+            {% if education_data %}
+            {% for i in education_data %}
+            <div class="education-card" id="education-{{i.id}}" style="display: flex; flex-direction: row;  border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; justify-content: space-between; gap: 20px;">
+              <strong>{{ i.institution }}</strong> - <span>{{ i.graduation_year }}</span><i class="bx bx-trash" onclick="deleteEducation('{{ i.id }}')" style="cursor: pointer;"></i>
+            </div>
+  {% endfor %}
+{% endif %}
+            
+          </div>
+        </div>
+
+        <!-- Languages Section -->
+        <div class="row" style="align-items: start; justify-content: start; display: flex; flex-direction: column;">
+          <div class="row">
+            <h3>Languages</h3>
+            <i class="bx bx-plus" onclick="openModalLanguage('language')"></i>
+          </div>
+          
+      
+          <div id="language-container" style="margin-top: 10px; ">
+            {% if languages_data %}
+            {% for i in languages_data %}
+           <p class="language-card" id="lang-{{ i.id }}" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px; justify-content: space-between; width: 100%;">
+            <strong >{{ i.name }}</strong>
+  
+            <i class="bx bx-trash" onclick="deleteLanguage('{{ i.id }}')" style="cursor: pointer;"></i>
+          </p>
+
+            {% endfor %}
+            
+            {% endif %}
+            
+          </div>
+        </div>
+
+
+        <!-- Certifications Section -->
+        <div class="certifications-section">
+          <div class="row" style="display: flex; flex-direction: column;">
+            <div class="row">
+              <h2>Certifications</h2>
+              <i class="bx bx-plus" onclick="openModalCertification('certification')"></i>
+            </div>
+            
+          </div>
+          <div id="certifications-container" style="display: flex; flex-direction: column; border: 1px solid #ccc; border-radius: 5px; font-family: Arial, sans-serif;">
+
+ 
+  <div style="display: flex; border-bottom: 1px solid #eee;; font-weight: bold; padding: 10px;  justify-content: space-between;">
+    <div style=" padding-left: 10px; width: 30px; ">Name</div>
+    <div style="  padding-left: 10px; width: 50px;  ">Organization</div>
+    <div style=" padding-left: 10px; width: 30px; ">Year</div>
+  </div>
+
+  {% if certification_data %}
+    {% for i in certification_data %}
+      <div class="education-card" id="certification-{{i.id}}" style="display: flex; padding: 10px; border-bottom: 1px solid #eee;">
+        <div style="flex: 2; padding-left: 10px; border-right: 1px solid #ccc;"><strong>{{ i.name }}</strong></div>
+        <div style="flex: 2; padding-left: 10px; border-right: 1px solid #ccc;">{{ i.organization }}</div>
+        <div style="flex: 1; padding-left: 10px;">{{ i.year }}</div>
+        <i class="bx bx-trash" onclick="deleteCertification('{{ i.id }}')" style="cursor: pointer;"></i>
+      </div>
+    {% endfor %}
+  
+  {% endif %}
+
+</div>
+
+        </div>
+
+        <!-- Experience Section -->
+        <div class="certifications-section">
+          <div class="row" style="display: flex; flex-direction: column;">
+            <div class="row">
+              <h2>Work Experience</h2>
+              <i onclick="openModalExperience('experience')" class="bx bx-plus"></i>
+            </div>
+            
+            
+          </div>
+          <div id="experience-container"  style="display: flex; flex-direction: column; justify-content: space-between; ">
+            {% if work_data %}
+            {% for i in work_data %}
+            <div id="experience-{{i.id}}" style="display: flex; flex-direction: row; justify-content: space-between; gap: 20px;">
+            <p style="color:aqua;">{{i.name}}</p>
+            <p>{{i.description}}</p>
+            <i class="bx bx-trash" onclick="deleteExperience('{{ i.id }}')" style="cursor: pointer;"></i>
+            </div>
+          
+            {% endfor %}
+            
+            {% endif %}
+
+            
+          </div>
+        </div>
+
+        <div class="my_hours">
+          <div class="row">
+            <h3>Hours per week</h3>
+            <div>
+              <i class="bx bx-pencil" onclick="openModal('hours_week')"></i>
+              
+            </div>
+          </div>
+          <p>{{hours_week}}</p>
+        </div>
+      </div>
+
+      <div class="qualification">
+        <div class="qualification_name">
+          <div class="row">
+            <h2 id="job-title">{{title}}
+              <i class="bx bx-pencil" onclick="openModal('title')"></i>
+            </h2>
+            <h3 id="hourly-rate">${{rate}}/hr
+              <i class="bx bx-pencil" onclick="openModal('rate')"></i>
+            </h3>
+          </div>
+          <div class="row">
+            <p id="profile-description">{{description}}</p>
+            <i class="bx bx-plus" onclick="openModal('description')"></i>
+          </div>
+        </div>
+
+        <!-- Projects Section -->
+        
+
+
+         <div class="portfolio">
+  <div class="row" style="display: flex; flex-direction: column; align-items: start;
+    justify-content: start;">
+    <div class="row">
+      <h1>Saved Jobs</h1>
+    </div>
+
+   <div class="applied-jobs-container" style="padding: 30px;  width: 93%; display: flex; flex-direction: row;">
+  <div class="applied-jobs-grid" style="
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  ">
+    {% for i in saved_jobs_data %}
+    <div class="applied-job-card" style="
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+    ">
+      <div style="
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      ">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <h3 style="
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+          ">
+            {{ i.job.title }}
+          </h3>
+          <a href="{% url 'unsave_job_profile' i.job.id %}" style="
+            color: #e53e3e;
+            transition: color 0.2s;
+            margin-left: 10px;
+          ">
+            <i class="bx bxs-heart" style="font-size: 20px;"></i>
+          </a>
+        </div>
+        
+        <p style="
+          color: #4a5568;
+          font-size: 14px;
+          margin: 0 0 16px 0;
+          line-height: 1.5;
+          flex-grow: 1;
+        ">
+          {{ i.job.description|truncatechars:120 }}
+        </p>
+        
+        <div style="
+          display: flex;
+          gap: 12px;
+          margin-top: auto;
+        ">
+          <div style="
+            background: #edf2f7;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #2d3748;
+          ">
+            <strong>${{ i.job.hourly_rate }}</strong>/hr
+          </div>
+          
+          <div style="
+            background: #ebf8ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #2b6cb0;
+          ">
+            {{ i.job.experience }}
+          </div>
+        </div>
+      </div>
+      
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        background: #f7fafc;
+        border-top: 1px solid #e2e8f0;
+      ">
+        
+        
+        <a href="{% url 'job_details' i.job.id %}" style="
+          color: #4299e1;
+          font-weight: 500;
+          text-decoration: none;
+          font-size: 13px;
+          transition: all 0.2s;
+        ">
+          View Details →
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .applied-job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    border-color: #cbd5e0;
+  }
+  
+  .bxs-heart {
+    color: #e53e3e;
+  }
+  
+  .bxs-heart:hover {
+    color: #c53030 !important;
+    transform: scale(1.1);
+  }
+  
+  a[href*='job_details']:hover {
+    color: #3182ce !important;
+  }
+</style>
+  </div>
+</div>
+
+        <!-- Skills Section -->
+      
+        <div class="qualification_skills" style=" border-bottom: 1px solid white; margin-bottom: 30px; ">
+          <div class="row" style="display: flex; flex-direction: column;">
+            <div class="row">
+            <h1>Skills</h1>
+            <i class="bx bx-plus" onclick="openModalSkills('skills')"></i>
+            </div>
+            
+          </div>
+          
+    
+          <div id="skills-container" class="skills" style="display: flex; flex-direction: row; align-items: center; justify-content: start; gap: 10px;">
+  {% if skill_data %}
+    {% for i in skill_data %}
+      <p id="skill-{{ i.id }}" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px;">
+        {{ i.name }}
+        <i class="bx bx-trash" onclick="deleteSkill('{{ i.id }}')" style="cursor: pointer;"></i>
+      </p>
+    {% endfor %}
+  
+  {% endif %}
+</div>
+</div>
+
+          
+        <div class="applied">
+          <div class="row">
+            <h1>Applied Jobs</h1>
+          </div>
+          <div class="applied_jobs">
+            {% for i in applied_jobs_data %}
+            <div class="job_card"  data-date="Applied: {{i.date}}">
+              <p style="color: gray; display: flex; align-items: center; justify-content: center;" >{{i.job.title}}</p>
+              <span style="color: #000;">{{i.job.description}}</span>
+            </div>
+           
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="modal-overlay" style="display: none;"></div>
+<div id="modal-form" style="display: none;">
+  <h3 id="modal-title"></h3>
+
+  <form id="modal-dynamic-form" method="post" action="">
+    {% csrf_token %}
+    <div id="form-fields-container"></div>
+
+    <div class="modal-buttons">
+      <button type="button" onclick="closeModal()">Cancel</button>
+      <button type="submit" >Save</button>
+    </div>
+  </form>
+</div>
+
+
+
+<div id="form-templates" style="display: none;">
+  <div id="template-education">
+    <label for="institution">institution</label>
+    <input type="text" id="institution" name="institution" value="{{ form.institution.value }}"/>
+    <label for="graduation_year">graduation_year</label>
+    <input type="text" id="graduation_year" name="graduation_year" value="{{ form.graduation_year.value }}"/>
+  
+
+  </div>
+  <div id="template-experience">
+    
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="{{ form.name.value }}"/>
+    
+    <label for="description">description</label>
+    <input type="text" id="description" name="description" value="{{ form.description.value }}"/>
+    
+  </div>
+
+  <div id="template-skills">
+    <label for="name">name</label>
+    <input type="text" id="name" name="name" value="{{ form.name.value }}"/>
+    
+  </div>
+
+  <div id="template-language">
+    <label for="name">name</label>
+    <input type="text" id="name" name="name" value="{{ form.name.value }}"/>
+
+  </div>
+  <div id="template-certification">
+    <label for="name">name</label>
+    <input type="text" id="name" name="name" value="{{ form.name.value }}"/>
+
+    <label for="organization">organization</label>
+    <input type="text" id="organization" name="organization" value="{{ form.organization.value }}"/>
+    <label for="year">year</label>
+    <input type="text" id="year" name="year" value="{{ form.year.value }}"/>
+    
+    
+  </div>
+  <div id="template-title">
+    <label for="title">name</label>
+    <input type="text" id="title" name="title"/>
+  </div>
+
+   <div id="template-rate">
+    <label for="rate">hourly rate</label>
+    <input type="number" id="rate" name="rate"/>
+  </div>
+  <div id="template-hours_week">
+    <label for="hours_week">Hours per week</label>
+    <input type="number" id="hours_week" name="hours_week"/>
+  </div>
+
+   <div id="template-video">
+    <label for="video">Video Introduction</label>
+    <input type="url" id="video" name="video"/>
+  </div>
+
+
+  <div id="template-description">
+    <label for="description">description</label>
+    <textarea type="text" id="description" name="description"></textarea>
+  </div>
+
+
+
+  <div id="template-project">
+    
+    <label for="name">name</label>
+    <input type="text" id="name" name="name" value="{{ form.name.value }}"/>
+
+    <label for="image">image</label>
+    <input type="url" id="image" name="image" value="{{ form.image.value|default_if_none:'' }}"/>
+    </div>
+  
+</div>
+
+<span id="url-add-education" data-url="{% url 'add_education' %}"></span>
+<span id="url-add-skills" data-url="{% url 'add_skill' %}"></span>
+<span id="url-add-language" data-url="{% url 'add_language' %}"></span>
+<span id="url-add-experience" data-url="{% url 'add_experience' %}"></span>
+<span id="url-add-certification" data-url="{% url 'add_certification' %}"></span>
+<span id="url-add-project" data-url="{% url 'add_project' %}"></span>
+<span id="url-add-title" data-url="{% url 'update_title' %}"></span>
+<span id="url-add-description" data-url="{% url 'update_description' %}"></span>
+<span id="url-add-rate" data-url="{% url 'update_rate' %}"></span>
+<span id="url-add-video" data-url="{% url 'update_video' %}"></span>
+<span id="url-add-hours_week" data-url="{% url 'update_hours_week' %}"></span>
+
+
+
+
+
+
+<script>
+  function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+function deleteSkill(skillId) {
+  if (!confirm("Are you sure you want to delete this skill?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/skill/${skillId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`skill-${skillId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete skill');
+    }
+  })
+  .catch(() => alert('Error deleting skill'));
+}
+
+function deleteLanguage(langId) {
+  if (!confirm("Are you sure you want to delete this Language?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/language/${langId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`lang-${langId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete language');
+    }
+  })
+  .catch(() => alert('Error deleting language'));
+}
+
+function deleteEducation(eduId) {
+  if (!confirm("Are you sure you want to delete this Education?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/education/${eduId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`education-${eduId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete Education');
+    }
+  })
+  .catch(() => alert('Error deleting Education'));
+}
+
+function deleteCertification(cerId) {
+  if (!confirm("Are you sure you want to delete this Certification?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/certification/${cerId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`certification-${cerId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete Certification');
+    }
+  })
+  .catch(() => alert('Error deleting Certification'));
+}
+
+
+function deleteExperience(exId) {
+  if (!confirm("Are you sure you want to delete this Experience?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/experience/${exId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`experience-${exId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete Experience');
+    }
+  })
+  .catch(() => alert('Error deleting Experience'));
+}
+
+
+function deleteProject(projId) {
+  if (!confirm("Are you sure you want to delete this Project?")) return;
+
+  fetch(`http://127.0.0.1:8000/user/delete/project/${projId}/`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      
+      const elem = document.getElementById(`project-${projId}`);
+      if (elem) elem.remove();
+    } else {
+      alert('Failed to delete Project');
+    }
+  })
+  .catch(() => alert('Error deleting Project'));
+}
+
+
+
+</script>
+
+<script>
+
+function openModal(formType) {
+    // Set the modal title
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    // Get the form template content
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    // Set the form action
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    // Show the modal
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('modal-form').style.display = 'none';
+  }
+
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+
+
+
+  function openModalEducation(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+.then(data => {
+  if (data.ok) {
+    
+      const skillList = document.getElementById('education-container');
+
+    
+      const newElem = document.createElement('div');
+      
+      newElem.id = `education-${data.id}`;
+      newElem.className = 'education-card';
+      newElem.style.cssText = `
+  display: flex; 
+  flex-direction: row;  
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  border-radius: 5px; 
+  justify-content: space-between; 
+  gap: 20px;
+`;
+      newElem.innerHTML = `
+        <strong>${data.institution}</strong> - <span>${data.graduation_year}</span>
+        <i class="bx bx-trash" onclick="deleteEducation('${data.id}')" style="cursor: pointer;"></i>
+
+      `;
+
+      skillList.appendChild(newElem);
+
+      
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+function openModalSkills(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+
+
+
+.then(data => {
+  if (data.ok) {
+    
+      const skillList = document.getElementById('skills-container');
+
+    
+      const newElem = document.createElement('p');
+      
+      newElem.id = `skill-${data.id}`;
+      newElem.style.cssText = `
+  border: 1px solid #ccc; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px;
+`;
+      newElem.innerHTML = `
+        ${data.name}
+        <i class="bx bx-trash" onclick="deleteSkill('${data.id}')" style="cursor: pointer;"></i>
+      `;
+
+      skillList.appendChild(newElem);
+
+      
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+function openModalLanguage(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+
+
+ 
+.then(data => {
+  if (data.ok) {
+    
+      const skillList = document.getElementById('language-container');
+
+    
+      const newElem = document.createElement('p');
+      
+      newElem.id = `lang-${data.id}`;
+      newElem.style.cssText = `
+  border: 1px solid #ccc; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px; justify-content: space-between; width: 100%;
+`;
+      newElem.innerHTML = `
+        <strong >${data.name}</strong>
+  
+            <i class="bx bx-trash" onclick="deleteLanguage('${data.id}')" style="cursor: pointer;"></i>
+      `;
+
+      skillList.appendChild(newElem);
+
+      
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+function openModalCertification(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+
+
+ 
+.then(data => {
+  if (data.ok) {
+    
+      const certificationList = document.getElementById('certifications-container'); 
+
+  
+  const newElem = document.createElement('div');
+  newElem.className = 'education-card';
+  newElem.id = `certification-${data.id}`;
+  newElem.style.cssText = `
+    display: flex; 
+    padding: 10px; 
+    border-bottom: 1px solid #eee;
+  `;
+
+  
+  newElem.innerHTML = `
+    <div style="flex: 2; padding-left: 10px; border-right: 1px solid #ccc;"><strong>${data.name}</strong></div>
+    <div style="flex: 2; padding-left: 10px; border-right: 1px solid #ccc;">${data.organization}</div>
+    <div style="flex: 1; padding-left: 10px;">${data.year}</div>
+    <i class="bx bx-trash" onclick="deleteCertification('${data.id}')" style="cursor: pointer;"></i>
+  `;
+
+  certificationList.appendChild(newElem);
+
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+  
+function openModalExperience(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+
+
+.then(data => {
+  if (data.ok) {
+    
+      const certificationList = document.getElementById('experience-container'); 
+
+  
+  const newElem = document.createElement('div');
+  newElem.id = `experience-${data.id}`;
+  newElem.style.cssText = `
+    display: flex; flex-direction: row; justify-content: space-between; gap: 20px;
+  `;
+
+  
+  newElem.innerHTML = `
+    <p style="color:aqua;">${data.name}</p>
+            <p>${data.description}</p>
+            <i class="bx bx-trash" onclick="deleteExperience('${ data.id }')" style="cursor: pointer;"></i>
+  `;
+
+  certificationList.appendChild(newElem);
+
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+function openModalProject(formType) {
+    
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.textContent = `Add ${formType.charAt(0).toUpperCase() + formType.slice(1)}`;
+
+    
+    const template = document.getElementById(`template-${formType}`);
+    const formFieldsContainer = document.getElementById('form-fields-container');
+    formFieldsContainer.innerHTML = template.innerHTML;
+
+    
+    const actionSpan = document.getElementById(`url-add-${formType}`);
+    const actionUrl = actionSpan.getAttribute('data-url');
+    
+    const form = document.getElementById('modal-dynamic-form');
+    form.setAttribute('action', actionUrl);
+
+    
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-form').style.display = 'block';
+
+    form.onsubmit = function(event) {
+  event.preventDefault(); 
+
+  const formData = new FormData(form);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  fetch(actionUrl, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+    
+    
+  })
+  .then(response => {
+  if (!response.ok) {
+    
+    throw new Error(`Server error: ${response.status}`);
+  }
+  return response.json();
+})
+
+ 
+            
+
+.then(data => {
+  if (data.ok) {
+    
+      const certificationList = document.getElementById('projects-container'); 
+
+  
+  const newElem = document.createElement('div');
+  newElem.id = `project-${data.id}`;
+  newElem.className = 'column';
+  newElem.style.cssText = `
+    display: flex; flex-direction: column; align-items: center; padding: 10px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); margin: 10px; width: 200px;
+  `;
+
+  
+  newElem.innerHTML = `
+    <div class="hover-delete" style="
+              position: absolute; top: 8px; right: 8px; background-color: rgba(0,0,0,0.6);
+              padding: 6px; border-radius: 50%; cursor: pointer;">
+              <i class="bx bx-trash" style="color: white; font-size: 20px;" onclick="deleteProject('${ data.id }'); event.stopPropagation();"></i>
+            </div>
+  <img src="${ data.image }" alt="${ data.name }" style="width: 100%; height: auto; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+  <p style="font-weight: bold; color: white; font-size: 16px; text-align: center; margin: 0;">${ data.name }</p>
+`;
+
+  certificationList.appendChild(newElem);
+
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-form').style.display = 'none';
+  } else {
+    alert('Failed to add item');
+    console.error(data.errors);
+  }
+})
+.catch(error => {
+  alert(`Fetch error: ${error.message}`);
+  console.error(error);
+});
+  }}
+
+
+  
+
+  
+
+
+
+
+
+  function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('modal-form').style.display = 'none';
+  }
+
+
+</script>
+
+
+</body>
+</html>

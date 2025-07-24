@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>job_offers</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_offers.css' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+  <style>
+    #add-job-btn:hover {
+    background-color: gray;
+    border-radius: 50%;
+    transform: scale(1.3);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.filters img{
+  width: 50%;
+  height: auto;
+  margin-bottom:10px ;
+}
+  </style>
+</head>
+<body>
+
+<div>
+
+</div>
+<nav>
+  <div class="logo">
+    <img src="{% static 'img/img_6.jpg' %}" style="width: 200px;">
+  </div>
+
+  <div class="nav_links">
+    {% if user.user_type == "company" %}
+    <a href="{% url 'company_profile' %}">Profile</a>
+
+    {% endif %}
+   
+    {% if user.user_type == "job_seeker" %}
+    <a href="{% url 'profile' %}">Profile</a>
+
+    {% endif %}
+   
+    
+    <a href="{% url 'job_offers' %}">Job Offers</a>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <div class="nav-icons">
+      <i class="bx bx-bell notification-icon"></i>
+      <img src="{% static 'img/user.png' %}" alt="Profile" class="profile-img">
+    </div>
+
+  </div>
+
+
+</nav>
+
+
+
+
+<section class="main">
+
+
+  
+  
+
+  <div class="filter" style="display: flex;  position: relative;">
+  <form action="{% url 'search_bar' %}" method="get" style="margin-bottom:30px;position: relative; width: 40%; color: white; ">
+  <input 
+    name="search1" 
+    type="text" 
+    placeholder="Search for jobs..." 
+    style=" width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #ccc; border-radius: 8px; background-color: transparent; color: wheat;"
+    
+  >
+
+  <button 
+    type="submit" 
+    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 0; margin: 0;"
+  >
+    <i class="bx bx-search" style="font-size: 18px; color:white"></i>
+  </button>
+</form>
+
+{% if user.user_type == "company" %}
+  <a href="{% url 'add_job2' %} " id="add-job-btn" style="position: absolute; right: 10px; top: 10px; font-size: 30px; color:white; width: 35px; height: 35px; padding: 3px; display: flex; align-items: center;  text-decoration:none">
+  <i class="bx bx-plus"></i>
+</a>
+  {% endif %}
+
+
+
+    <div  class="filters">
+
+       <img src="https://img.freepik.com/free-psd/software-engineering-poster-template-design_23-2151848807.jpg?uid=R117230801&ga=GA1.1.578030478.1725297375&semt=ais_hybrid&w=740" alt="">
+    
+
+      <img src="https://img.freepik.com/free-vector/big-sale-banner-template-design-web-social-media_91128-2117.jpg?uid=R117230801&ga=GA1.1.578030478.1725297375&semt=ais_hybrid&w=740" alt="">
+
+      <img src="https://img.freepik.com/premium-psd/advertisement-opening-soon-is-open_1262487-8.jpg?uid=R117230801&ga=GA1.1.578030478.1725297375&semt=ais_hybrid&w=740" alt="">
+
+
+      <img src="https://img.freepik.com/premium-psd/fashion-sale-discount-social-media-post-template_1111794-2781.jpg?uid=R117230801&ga=GA1.1.578030478.1725297375&semt=ais_hybrid&w=740" alt="">
+
+
+      <img src="https://img.freepik.com/premium-psd/picture-hamburger-box-hamburger_1126722-13375.jpg?uid=R117230801&ga=GA1.1.578030478.1725297375&semt=ais_hybrid&w=740" alt="">
+
+     
+    
+    </div>
+
+  </div>
+
+
+  <div class="jobs">
+    
+
+   {% if messages %}
+  <div style="position: fixed; top: 20px; right: 20px; z-index: 9999; max-width: 300px;">
+    {% for message in messages %}
+      
+      {% if message.tags == 'success' %}
+      <div style="padding: 12px 18px; margin-top: 50px; border-radius: 6px; font-weight: 500;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #28a745; color: white;">
+        {{ message }}
+      </div>
+      {% elif message.tags == 'warning' %}
+      <div style="padding: 12px 18px; margin-top: 50px; border-radius: 6px; font-weight: 500;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #ffc107; color: black;">
+        {{ message }}
+      </div>
+      
+      {% endif %}
+
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+
+  {% for i in data %}
+    <a href="{% url 'job_details' i.id %}" class="job-link">
+      <div class="job_card" id="job-offer-{{i.id}}" style="position: relative; color: white;">
+        
+        
+        {% if user.user_type == "company"  %}
+        {% if i.company == company_user %}
+        <div onclick="deleteJobOffer('{{ i.id }}'); event.stopPropagation(); event.preventDefault();" 
+             style="position: absolute; top: 10px; right: 10px; background-color: gray; padding: 6px; border-radius: 50%; cursor: pointer;">
+          <i class="bx bx-trash" style="color: white; font-size: 20px;"></i>
+        </div>
+        {% endif %}
+
+        {% endif %}
+        
+
+        <h3 class="posted-time " style=" color: white;">Posted {{i.posted_at}} </h3>
+        <div class="job-header">
+          <h1 class="job-title" >{{ i.title }}</h1>
+          <div class="job-actions">
+            {%if user.user_type == 'job_seeker'%}
+            
+            {% if i.id in user_saved_jobs %}
+
+            
+            <i class="bx  bxs-heart" onclick="unsaveJob(event,this, '{{ i.id }}')" style="cursor: pointer;"></i>
+
+            {% else %}
+            <i class="bx bx-heart" onclick="saveJob(event,this, '{{ i.id }}')" style="cursor: pointer;"></i>
+            {% endif %}
+            
+            {% endif %}
+            
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="client-details">
+            <p style=" color: white;"><i class="bx bx-badge-check" style=" color: white;"></i> Payment Verified</p>
+            
+            <p style=" color: white;"><i class="bx bx-map" style=" color: white;"></i>{{i.company.location}}</p>
+            
+          </div>
+
+          <div class="payment">
+            <p style=" color: white;"><i class="bx bx-time"style=" color: white;" ></i> Hourly Rate: <strong>{{ i.hourly_rate }}</strong></p>
+          </div>
+
+          <p class="description">{{ i.description }}</p>
+
+          <div class="key_words" style="display: flex; flex-direction: row; gap: 8px;">
+            {% for j in i.job_skill.all %}
+              <span class="keyword">{{ j.name }}</span>
+            {% endfor %}
+          </div>
+
+          
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<span id="url-add-job" data-url="{% url 'add_job2' %}"></span>
+
+
+
+
+
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('[style*="padding: 12px 18px"]');
+    alerts.forEach(alert => {
+      alert.style.transition = "opacity 0.5s ease";
+      alert.style.opacity = 0;
+      setTimeout(() => alert.remove(), 500);
+    });
+  }, 3000);
+</script>
+
+<script>
+
+
+  function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+
+function saveJob(event,icon, jobId) {
+  event.preventDefault(); 
+  fetch(`http://127.0.0.1:8000/saved/save/${jobId}/`, {
+    method: 'GET',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.saved) {
+      icon.classList.remove('bx-heart');
+      icon.classList.add('bxs-heart');
+      
+    } 
+  });
+}
+
+function unsaveJob(event,icon, jobId) {
+  event.preventDefault(); 
+  fetch(`http://127.0.0.1:8000/saved/unsave/${jobId}/`, {
+    method: 'GET',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.notsaved) {
+      icon.classList.remove('bxs-heart');
+      icon.classList.add('bx-heart');
+      
+      
+    }
+  });
+}
+
+
+  
+</script>
+
+
+
+
+
+</body>
+</html>

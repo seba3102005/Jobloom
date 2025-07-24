@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_offers.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_details.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+
+<nav>
+  <div class="logo">
+    <img src="{% static 'img/img_6.jpg' %}" style="width: 200px;">
+  </div>
+
+  <div class="nav_links">
+    {% if user.user_type == "company" %}
+    <a href="{% url 'company_profile' %}">Profile</a>
+
+    {% endif %}
+   
+    {% if user.user_type == "job_seeker" %}
+    <a href="{% url 'profile' %}">Profile</a>
+
+    {% endif %}
+   
+    <a href="{% url 'job_offers' %}">Job Offers</a>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <div class="nav-icons">
+      <i class="bx bx-bell notification-icon"></i>
+      <img src="{% static 'img/user.png' %}" alt="Profile" class="profile-img">
+    </div>
+
+  </div>
+
+
+</nav>
+
+<div class="apply_main">
+
+  {% if messages %}
+  <div style="position: fixed; top: 20px; right: 20px; z-index: 9999; max-width: 300px;">
+    {% for message in messages %}
+      
+      {% if message.tags == 'success' %}
+      <div style="padding: 12px 18px; margin-top: 50px; border-radius: 6px; font-weight: 500;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #28a745; color: white;">
+        {{ message }}
+      </div>
+      {% elif message.tags == 'warning' %}
+      <div style="padding: 12px 18px; margin-top: 50px; border-radius: 6px; font-weight: 500;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #ffc107; color: black;">
+        {{ message }}
+      </div>
+      
+      {% endif %}
+
+    {% endfor %}
+  </div>
+{% endif %}
+
+<h1>Submit Proposal</h1>
+<div class="proposal_setting">
+  <h1>Proposal settings</h1>
+  <p>This proposal requires 21 Connects<br></p>
+  <p>When you submit this proposal, you'll have 90 Connects remaining.</p>
+</div>
+
+  <div class="terms">
+
+    <div class="terms_text">
+      <h1>Terms </h1>
+      <h3>What is the rate you'd like to bid for this job?</h3>
+      <div class="budget">
+        <p>Your profile rate: $8.00/hr</p>
+        <P>Client’s budget: $25.00 - $40.00</P>
+      </div>
+
+
+  <form action="{% url 'apply_on_job' jobID %}" method="POST">
+
+    {% csrf_token %}
+    
+      <div class="hourly_rate">
+  <label for="salaryWithout">Enter your hourly rate</label>
+  {{ form.salaryWithout }}<span>/hr</span>
+</div>
+
+<div class="fee">
+        <h4>10% Freelancer Service Fee</h4>
+        <div class="input_filed">
+          <p>$-0.8</p><span>/hr</span>
+        </div>
+      </div>
+
+
+
+      <div class="hourly_rate">
+  <h3>You Will Receive </h3>
+  <div class="input_filed">
+    {{ form.salaryWithFees }}<span>/hr</span>
+  </div>
+</div>
+
+     
+      <div class="schedule">
+        <h3>Schedule a Rate Increase</h3>
+        <p>
+          Propose an optional rate increase. If approved by your client, your rate will increase
+          automatically over the contract’s lifetime. This term can’t be changed once you accept
+          an offer from your client.
+        </p>
+
+        <div class="rate_frequency">
+          <label for="frequency">How often do you want a rate increase?</label>
+          
+          {{ form.rate_increase }}
+        </div>
+
+        <div class="rate_increase">
+          <label for="increase">How much of an increase do you want?</label>
+          {{ form.increase_percentage }}
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="terms_img">
+      <img src="{% static 'img/img.png' %}">
+      <p>Includes jobloom Hourly Protection.</p>
+      <a href="#">Learn More</a>
+    </div>
+  </div>
+
+
+  <div class="more_details">
+<h1>More Details </h1>
+<h3>Cover Letter</h3>
+    <label for="message"></label>
+    {{ form.cover_letter }}
+<P>5000 characters max</P>
+  </div>
+
+  <!-- your inputs here -->
+  <button type="submit" class="submit_proposal" style="background-color: #95BEDA; color: white; padding: 12px 24px;  border: none; border-radius: 5px;  font-size: 16px; cursor: pointer;transition: background-color 0.3s ease; padding-left: 30px; padding-right: 30px;">Submit</button>
+</form>
+  
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const rateInput = document.getElementById("salaryWithout");
+    const receiveInput = document.getElementById("salaryWithFees");
+
+    function updateCalculations() {
+      let rate = parseFloat(rateInput.value);
+      if (isNaN(rate)) return;
+
+      let receive = +(rate * 0.9).toFixed(2); 
+      receiveInput.value = receive;
+    }
+
+    rateInput.addEventListener("input", updateCalculations);
+  });
+</script>
+
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('[style*="padding: 12px 18px"]');
+    alerts.forEach(alert => {
+      alert.style.transition = "opacity 0.5s ease";
+      alert.style.opacity = 0;
+      setTimeout(() => alert.remove(), 500);
+    });
+  }, 3000);
+</script>
+
+
+</body>
+</html>

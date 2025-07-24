@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>job_details</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_offers.css' %}">
+  <link rel="stylesheet" href="{% static 'css/job_details.css' %}">
+ 
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Maven+Pro:wght@400..900&family=Playwrite+HU:wght@100..400&family=Playwrite+IT+Moderna:wght@100..400&family=Playwrite+US+Modern+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+  <style>
+    .btns{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5%;
+}
+.btns a{
+  text-decoration: none;
+  color: #95BEDA;
+  font-family: Inter, serif;
+  font-weight: bold;
+  font-size: 16px;
+
+  width: 100%;
+
+}
+
+.apply_btn {
+  width: 80%;
+  background:white;
+  color:#95BEDA;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.apply_btn:hover {
+
+  opacity: 0.9;
+
+}
+
+.save_btn {
+  width: 80%;
+  background:   transparent; ;
+  color:#95BEDA;
+  border: 1px solid #95BEDA ;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap:10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.save_btn:hover {
+ opacity:0.9;
+}
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="{% static 'img/img_6.jpg' %}" alt="Logo" style="width: 200px;"/>
+  </div>
+
+  <div class="nav_links">
+    {% if user.user_type == "company" %}
+    <a href="{% url 'company_profile' %}">Profile</a>
+
+    {% endif %}
+   
+    {% if user.user_type == "job_seeker" %}
+    <a href="{% url 'profile' %}">Profile</a>
+
+    {% endif %}
+    
+    <a href="{% url 'job_offers' %}">Job Offers</a>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <div class="nav-icons">
+      <i class="bx bx-bell notification-icon"></i>
+      <img src="{% static 'img/user.png' %}" alt="Profile" class="profile-img">
+    </div>
+
+  </div>
+
+
+</nav>
+
+<div  class="job_container">
+
+<div class="job_details">
+  <div class="header">
+    <h1 class="title">
+   
+      {{ data.title }}
+      
+    </h1>
+    <div class="client-details">
+      <h3 class="posted-time">Posted 2 hours ago</h3>
+      <p><i class="bx bx-map"></i> United States</p>
+    </div>
+
+  </div>
+<div class="job_text">
+
+  <p class="job_description">
+    {{data.description}}
+  </p>
+</div>
+
+  <div class="more">
+    <div class="more-item">
+      <div class="main_text">
+        <i class="bx bx-time"></i>
+          <div class="total_text">
+            <p>   {{data.hourly_rate}} hrs/week</p>
+            <p class="small-text">Hourly</p>
+          </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="more-item">
+      <div class="main_text">
+        <i class="bx bx-calendar"></i>
+        <div class="total_text">
+          <p>1 to 3 months</p>
+          <p class="small-text">Project Length</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="more-item">
+      <div class="main_text">
+        <i class="bx bx-signal-5"></i>
+        <div class="total_text">
+          <p>{{data.experience}}</p>
+          <p class="small-text">I am looking for a mix of experience and value</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="job_type">
+      <p>Project type : Ongoing Project</p>
+    </div>
+
+
+  <div class="skills-container">
+    <h1>Skills and Expertise</h1>
+    <div class="skills">
+      {% for i in data.job_skill.all %}
+      <span class="skill">{{i.name}}</span>
+      
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="job-activity">
+    <h1>Activity on this job</h1>
+    <div class="activity-list">
+      
+      <p>No. of applied users on that Job: {{applied_users}}</p>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+  <div class="client">
+    {% if user.user_type == "job_seeker" %}
+    <div class="btns">
+      <button class="apply_btn" >
+        <a href="{% url 'apply_on_job' data.id %}">Apply Now</a>
+      </button>
+
+      <button class="save_btn">
+        {% if data.id in user_saved_jobs %}
+       
+        <a href="{% url 'unsave_job_details' data.id %} " ;style="padding-right:10px ;">
+        
+        <i class="bx  bxs-heart" ></i>Unsave Job</a>
+
+        {% else %}
+        <a href="{% url 'save_job_details' data.id %}">
+
+        <i class="bx bx-heart"></i>Save Job</a> 
+
+        {% endif %}
+        
+        
+      </button>
+    </div>
+    {% endif %}
+
+    
+
+
+    <div class="about_client">
+
+      <h1>
+        About Company
+      </h1>
+      <p>Payment method verified</p>
+     
+
+      <p>Title: {{data.company.title}}</p>
+      <p>Description:  {{data.company.description}}</p>
+      <p>Location:  {{data.company.location}}</p>
+      <p>Industry:  {{data.company.industry}}</p>
+      
+      
+    </div>
+
+    
+
+
+
+
+  </div>
+
+</div>
+
+
+  
+  
+  
+  
+
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

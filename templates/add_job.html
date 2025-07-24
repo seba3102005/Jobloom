@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Sign Up</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+  <link rel="stylesheet" href="{% static 'css/user&company.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="form-container">
+  <h2 class="form-title">Add a Job Offer</h2>
+
+  <form id="company-form" method="POST">
+    {% csrf_token %}
+
+    <div class="input-row">
+      <div class="input-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter job title" value = {{form.title.value}} required />
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="hourly_rate">Hourly Rate</label>
+      <input type="number" id="hourly_rate" name="hourly_rate" placeholder="$/hr" value = {{form.hourly_rate.value}} required />
+    </div>
+
+    <div class="input-group">
+  <label for="experience">Experience</label>
+  <select id="experience" name="experience" required>
+    <option value="entry" {% if form.experience.value == "entry" %}selected{% endif %}>Entry Level</option>
+    <option value="intermediate" {% if form.experience.value == "intermediate" %}selected{% endif %}>Intermediate</option>
+    <option value="expert" {% if form.experience.value == "expert" %}selected{% endif %}>Expert</option>
+  </select>
+</div>
+
+<div class="input-group">
+        <label for="description">Description</label>
+        <textarea style="width: 100%; border: 1px solid gray; outline:none;" id="description" name="description" placeholder="Describe the role" value = {{form.description.value}} required></textarea>
+      </div>
+
+    <div class="input-group">
+        
+      <label for="new_skills">Job Skills</label>
+      
+      <textarea style="border: 1px solid gray; outline:none; width: 100%;" type="text" id="new_skills" name="new_skills" placeholder="e.g., Python, SQL, Django" value = {{form.new_skills.value}} required ></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+
+    
+    
+
+  </form>
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
